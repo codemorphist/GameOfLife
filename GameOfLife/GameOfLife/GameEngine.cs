@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Xml.Serialization;
 
 namespace GameOfLife
 {
@@ -16,6 +17,7 @@ namespace GameOfLife
         private readonly int rows;
         private readonly int cols;
         private readonly int density;
+        public int UnitsCount { get; private set; }
         public uint CurrentGeneration { get; private set; }
 
         private Random random = new Random();
@@ -34,10 +36,10 @@ namespace GameOfLife
                 for (int y = 0; y < rows; y++)
                 {
                     this.field[x, y] = false;
-                    //this.field[x, y] = random.Next(density + 1) == 0;
                 }
             }
 
+            UpdateUnitCount();
             CurrentGeneration = 0;
         }
 
@@ -50,7 +52,7 @@ namespace GameOfLife
                     this.field[x, y] = random.Next(density + 1) == 0;
                 }
             }
-
+            UpdateUnitCount();
             CurrentGeneration = 0;
         }
 
@@ -75,6 +77,8 @@ namespace GameOfLife
             }
             CurrentGeneration++;
             this.field = newField;
+
+            UpdateUnitCount();
         }
 
         private int NeighboursCount(int x, int y)
@@ -85,13 +89,16 @@ namespace GameOfLife
             {
                 for (int ny = -1; ny <= 1; ny++)
                 {
-                    int tx = (x + nx + cols) % cols;
-                    int ty = (y + ny + rows) % rows;
+                    int tx = x + nx;
+                    int ty = y + ny;
 
-                    bool isSelf = tx == x && ty == y;
+                    if (tx > 0 && tx < field.GetLength(0) && ty > 0 && ty < field.GetLength(1))
+                    { 
+                        bool isSelf = tx == x && ty == y;
 
-                    if (!isSelf && this.field[tx, ty])
-                        count++;
+                        if (!isSelf && this.field[tx, ty])
+                            count++;
+                    }
                 }
             }
             return count;
@@ -106,6 +113,7 @@ namespace GameOfLife
         {
             if (ValidateCellPosition(x, y))
                 this.field[x, y] = state;
+            UpdateUnitCount();
         }
 
         public void AddCell(int x, int y)
@@ -125,6 +133,19 @@ namespace GameOfLife
                 for (int y = 0; y < rows; y++)
                 {
                     this.field[x, y] = false;
+                }
+            }
+        }
+
+        public void UpdateUnitCount()
+        {
+            UnitsCount = 0;
+            for (int x = 0; x < cols; x++)
+            {
+                for (int y = 0; y < rows; y++)
+                {
+                    if (this.field[x, y])
+                        UnitsCount++;
                 }
             }
         }

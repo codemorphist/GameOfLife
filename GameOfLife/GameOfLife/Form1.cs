@@ -83,12 +83,6 @@ namespace GameOfLife
             btnStart.Enabled = true;
         }
 
-
-        private void RandomGeneration()
-        {
-
-        }
-
         private void NextGeneration()
         {
             graphics.Clear(Color.Black);
@@ -127,10 +121,15 @@ namespace GameOfLife
             pictureBox1.Refresh();
         }
 
+        private void UpdateUnitCount()
+        {
+            label4.Text = $"Units count: {gameEngine.UnitsCount}";
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             NextGeneration();
-
+            UpdateUnitCount();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -142,6 +141,7 @@ namespace GameOfLife
         {
             PauseGame();
         }
+
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -158,6 +158,7 @@ namespace GameOfLife
                     gameEngine.RemoveCell(mx, my);
 
                 UpdateGame();
+                UpdateUnitCount();
             }
         }
 
@@ -173,12 +174,12 @@ namespace GameOfLife
         private void Form1_Load(object sender, EventArgs e)
         {
             StartGame();
-            PauseGame();
         }
 
         private void trackBar1_MouseMove(object sender, MouseEventArgs e)
         {
-            timer1.Interval = (int)trackBar1.Value;
+            timer1.Interval = 1000 / (int)trackBar1.Value;
+            label3.Text = $"Generation Speed: {timer1.Interval} ms";
         }
 
         private void btnRandom_Click(object sender, EventArgs e)
