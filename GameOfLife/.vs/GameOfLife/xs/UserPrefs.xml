@@ -1,0 +1,26 @@
+﻿<Properties StartupConfiguration="{965D8494-4442-4459-805B-FC275FC64BA2}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GameOfLife/Program.cs">
+    <Files>
+      <File FileName="GameOfLife/Program.cs" Line="16" Column="42" />
+      <File FileName="GameOfLife/GameEngine.cs" Line="139" Column="33" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="GameOfLife" expanded="True">
+            <Node name="GameOfLife" expanded="True">
+              <Node name="References" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.GameOfLife PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>
